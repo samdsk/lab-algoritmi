@@ -1,0 +1,42 @@
+if(j>0 && j<9 && k>0 && k<9){
+  if(
+    arr[j-1][k] != '.' &&
+    arr[j+1][k] != '.' &&
+    arr[j][k-1] != '.' &&
+    arr[j][k+1] != '.'
+  ){
+    break;
+  }
+}else if(j==0 && k>0 && k<9){
+  if(
+
+    arr[j+1][k] != '.' &&
+    arr[j][k-1] != '.' &&
+    arr[j][k+1] != '.'
+  ){
+    break;
+  }
+}
+
+/* valori.c */
+  int n=0;
+  int i=0;
+  int temp=0;
+  int err=-1;
+
+  printf("Inserire numero di interi: \n");
+  scanf("%d",&n);
+
+  printf("Inserire %d interi: \n",n);
+
+  while(i<n){
+    scanf("%d",&temp);
+    if(i!=temp){
+      err = i;
+    }
+    i++;
+  }
+
+  if(err != -1){
+    printf("%d\n",err);
+  }
