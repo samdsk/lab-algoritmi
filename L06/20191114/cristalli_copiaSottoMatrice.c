@@ -7,7 +7,6 @@ void stampaMatrice(char**,int);
 void crist(char**,int,int,int);
 void copiaSottoMatrice(char**,int,int,int,int,int);
 void cristallo(char**,int);
-void destroy(char**,int);
 
 int main(void){
     char** m; //matrice m
@@ -23,14 +22,13 @@ int main(void){
         cristallo(m,l);
         stampaMatrice(m,l);
     }
-    destroy(m,l);
     return 0;
 }
 
 void copiaSottoMatrice(char** m,int n,int r0,int c0,int r1,int c1){
     for(int i=r1;i<=r1+n;i++){
         int c = c0;
-        //printf("r1: %d, c1: %d, r0: %d, c0: %d\n",r1,c1,r0,c0);        
+        //printf("r1: %d, c1: %d, r0: %d, c0: %d\n",r1,c1,r0,c0);
         for(int j=c1;j<=c1+n;j++){
             //printf("r1: %d, c1: %d, r0: %d, c0: %d\n",i,j,r0,c);
             m[i][j]=m[r0][c];
@@ -45,18 +43,14 @@ void crist(char** m, int r0, int c0,int l){
         m[r0][c0]='X';
         return;
     }else{
-        /*if(r0>l || c0>l){
+        if(r0>l || c0>l){
             return;
-        }*/
-        int offset = l/2;
-        int rc = r0+offset;
-        int cc = c0+offset;
-
-        //int rc = (l+r0)/2;
-        //int cc = (l+c0)/2;
+        }
+        int rc = (l+r0)/2;
+        int cc = (l+c0)/2;
 
         m[rc][cc]='X';
-        
+
         crist(m,r0,c0,l/2);
         crist(m,rc+1,c0,l/2);
         crist(m,r0,cc+1,l/2);
@@ -69,26 +63,25 @@ void cristallo(char** m,int l){
     crist(m,0,0,l);
 
     int r0=0,c0=0,r1=0,c1=0,i=2,offset=4;
-/*
+
     while(i<l/2){
         copiaSottoMatrice(m,i,r0,c0,r1,c1+offset);
         copiaSottoMatrice(m,i,r0,c0,r1+offset,c1);
         copiaSottoMatrice(m,i,r0,c0,r1+offset,c1+offset);
         i=(i+1)*2;
-        offset *=2;
+        offset*=2;
     }
-*/    
-    
+    return;
 }
 
 void stampaMatrice(char** m,int n){
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
-           printf("%c ",m[i][j]); 
+           printf("%c ",m[i][j]);
         }
         printf("\n");
     }
-    return;    
+    return;
 }
 
 char** creaMatrice(int n){
@@ -109,11 +102,4 @@ int latoCristallo(int t){
     }else{
         return 1+2*latoCristallo(t-1);
     }
-}
-
-void destroy(char** m,int n){
-    for(int i=0;i<n;i++){
-        free(m[i]);
-    }
-    return;
 }
