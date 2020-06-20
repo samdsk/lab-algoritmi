@@ -2,7 +2,7 @@
 #include "item.h"
 
 #ifndef BITNODE_H
-#define BITNODE
+#define BITNODE_H
 
 struct bit_node{
   Item item;

@@ -1,5 +1,5 @@
 #ifndef ITEM_H
-#define ITEM
+#define ITEM_H
 
 typedef int Item;
 
