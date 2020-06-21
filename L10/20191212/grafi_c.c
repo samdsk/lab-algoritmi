@@ -56,7 +56,7 @@ void BFS_m(Graph_m g){
 
     Queue q = createQueue();
     int n = g->V;
-    int *aux = malloc(n*sizeof(int));    
+    int *aux = (int*)malloc(n*sizeof(int));    
 
     for(int i=0;i<n;i++){
         aux[i]=0;   
