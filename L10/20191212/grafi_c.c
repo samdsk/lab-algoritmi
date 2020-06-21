@@ -71,8 +71,38 @@ int main(void){
     Graph_l g = graphRead_l();
     graphPrint_l(g);
     DFS_l(g);
+    BFS_l(g);
 
     return 0;
+}
+
+void BFS_l(Graph_l g){
+    printf("BFS_l\n");
+
+    Queue q = createQueue();
+    int n = g->V;
+
+    int *aux = (int*)malloc(n*sizeof(int));
+
+    for(int i=0;i<n;i++) aux[i]=0;
+
+    enqueue(q,0);
+    
+    while(!isEmpty(q)){
+        int x = dequeue(q);
+        if(aux[x]==0){
+            aux[x]=1;
+            printf("%d",x);
+        }
+
+        for(List curr = g->L[x];curr!=NULL;curr = curr->next){
+            if(aux[curr->key]==0){
+                printf("%d",curr->key);
+                enqueue(q,curr->key);
+                aux[curr->key]=1;
+            }
+        }
+    }
 }
 
 int stackIsEmpty(Stack s){
@@ -80,7 +110,7 @@ int stackIsEmpty(Stack s){
 }
 
 void stackDestroy(Stack s){
-    for(List curr = s->S;!curr;curr = curr->next){
+    for(List curr = s->S;curr!=NULL;curr = curr->next){
         free(curr);
     }
     free(s->S);
@@ -186,7 +216,7 @@ void graphEdgeInsert_l(Graph_l g,int u,int v){
 
 void graphDestroy_l(Graph_l g){
     for(int i=0;i<g->V;i++){
-        for(List curr = g->L[i];!curr;curr = curr->next){
+        for(List curr = g->L[i];curr != NULL;curr = curr->next){
             free(curr);
         }        
     }
