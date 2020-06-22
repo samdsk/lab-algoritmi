@@ -47,6 +47,8 @@ int main(void){
     Graph_m g = graphRead_m();
     DFS_m(g);
     BFS_m(g);
+    
+    graphDestroy_m(g);
 
     return 0;
 }
@@ -59,32 +61,31 @@ void BFS_m(Graph_m g){
     int *aux = (int*)malloc(n*sizeof(int));    
 
     for(int i=0;i<n;i++){
-        aux[i]=0;   
-        printf("%d",aux[i]);     
+        aux[i]=0;          
     }
     
     enqueue(q,0);
 
     while(!isEmpty(q)){
-        printf("qua %d\n",aux[0]);
-        int x = dequeue(q);
-
-        printf("%d",x);
         
+        int x = dequeue(q);        
+        //printf("x = %d \n",x);
         if(aux[x]==0){
             aux[x]=1;
             printf("%d",x);
         }
         
-        /*
+        
         for(int i=0;i<n;i++){
             if(aux[i]==0){
-                int temp = g->A[x][i];
-                aux[i]=1;
-                printf("%d",temp);
-                enqueue(q,temp);
+                if(g->A[x][i]==1){
+                    aux[i]=1;
+                    printf("%d",i);
+                    enqueue(q,i);
+                }
+                
             }
-        }*/
+        }
     }
 
     printf("\n");
@@ -112,16 +113,18 @@ int dequeue(Queue q){
 
     if(!q->head) q->rear = NULL;
 
-    free(tmp);
+    //if(!tmp) free(tmp);
     return x;
 }
 
 void enqueue(Queue q,int x){
     if(isEmpty(q)){
+        //printf("è vuoto\n");
         q->l = listInsert(NULL,x);
         q->head = q->l;
         q->rear = q->l;
     }else{
+        //printf("non è vuoto\n");
         q->l = listInsert(q->l,x);
         q->rear = q->l; 
     }
