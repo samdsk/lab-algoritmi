@@ -67,16 +67,11 @@ int main(void){
     graphPrint_m(g);
     DFS_m(g);
     BFS_m(g);
-<<<<<<< HEAD
-    
-    graphDestroy_m(g);
-=======
 */
     Graph_l g = graphRead_l();
     graphPrint_l(g);
     DFS_l(g);
     BFS_l(g);
->>>>>>> a744229f91d3fc210fecc70c984b337021ef690d
 
     return 0;
 }
@@ -97,17 +92,18 @@ void BFS_l(Graph_l g){
         int x = dequeue(q);
         if(aux[x]==0){
             aux[x]=1;
-            printf("%d",x);
+            printf("%d ",x);
         }
 
         for(List curr = g->L[x];curr!=NULL;curr = curr->next){
             if(aux[curr->key]==0){
-                printf("%d",curr->key);
+                printf("%d ",curr->key);
                 enqueue(q,curr->key);
                 aux[curr->key]=1;
             }
         }
     }
+    printf("\n");
 }
 
 int stackIsEmpty(Stack s){
@@ -297,7 +293,7 @@ int dequeue(Queue q){
 
     if(!q->head) q->rear = NULL;
 
-    //if(!tmp) free(tmp);
+    if(!tmp) free(tmp);
     return x;
 }
 
