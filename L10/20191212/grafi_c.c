@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct list{    
+struct list{
     int key;
     struct list *next;
 };
@@ -19,8 +19,8 @@ struct graph_l{
 };
 typedef struct graph_l *Graph_l;
 
-struct queue{    
-    List head, rear;    
+struct queue{
+    List head, rear;
 };
 typedef struct queue *Queue;
 
@@ -62,7 +62,7 @@ void DFS_l(Graph_l);
 void BFS_l(Graph_l);
 
 int main(void){
-    
+
 /*    Graph_m g = graphRead_m();
     graphPrint_m(g);
     DFS_m(g);
@@ -87,7 +87,7 @@ void BFS_l(Graph_l g){
     for(int i=0;i<n;i++) aux[i]=0;
 
     enqueue(q,0);
-    
+
     while(!isEmpty(q)){
         int x = dequeue(q);
         if(aux[x]==0){
@@ -153,7 +153,7 @@ void DFS_l(Graph_l g){
         printf("%d ",x);
         aux[x]=1;
 
-        for(List curr = g->L[x];curr!=NULL;curr = curr->next){            
+        for(List curr = g->L[x];curr!=NULL;curr = curr->next){
             if(aux[curr->key]==0) push(s,curr->key);
         }
     }
@@ -184,7 +184,7 @@ Graph_l graphRead_l(){
 
     printf("Inserisci archi %d:\n",e);
 
-    for(int i=0;i<e;i++){        
+    for(int i=0;i<e;i++){
         scanf("%d %d",&u,&v);
         //printf("Read: %d %d\n",u,v);
         graphEdgeInsert_l(g,u,v);
@@ -203,23 +203,23 @@ void graphEdgeInsert_l(Graph_l g,int u,int v){
     for(curr = g->L[v];curr!=NULL;curr = curr->next){
         if(curr->key==u) return;
     }
-    
+
     g->L[u] = listInsert(g->L[u],v);
     g->L[v] = listInsert(g->L[v],u);
-    
+
 
 
     g->E++;
-    
+
     //printf("Inserted: %d %d\n",u,v);
-    
+
 }
 
 void graphDestroy_l(Graph_l g){
     for(int i=0;i<g->V;i++){
         for(List curr = g->L[i];curr != NULL;curr = curr->next){
             free(curr);
-        }        
+        }
     }
     free(g->L);
     free(g);
@@ -240,24 +240,24 @@ void BFS_m(Graph_m g){
 
     Queue q = createQueue();
     int n = g->V;
-    int *aux = (int*)malloc(n*sizeof(int));    
+    int *aux = (int*)malloc(n*sizeof(int));
 
     for(int i=0;i<n;i++){
-        aux[i]=0;          
+        aux[i]=0;
     }
-    
+
     enqueue(q,0);
 
     while(!isEmpty(q)){
-        
-        int x = dequeue(q);        
+
+        int x = dequeue(q);
         //printf("x = %d \n",x);
         if(aux[x]==0){
             aux[x]=1;
             printf("%d",x);
         }
-        
-        
+
+
         for(int i=0;i<n;i++){
             if(aux[i]==0){
                 if(g->A[x][i]==1){
@@ -265,7 +265,7 @@ void BFS_m(Graph_m g){
                     printf("%d",i);
                     enqueue(q,i);
                 }
-                
+
             }
         }
     }
@@ -276,7 +276,7 @@ void BFS_m(Graph_m g){
 
 List listInsert(List lo,int key){
     List l = malloc(sizeof(List));
-          
+
     l->key = key;
     l->next = lo;
 
@@ -303,27 +303,28 @@ void enqueue(Queue q,int x){
     l->next = NULL;
 
     if(isEmpty(q)){
-        //printf("è vuoto\n");       
+        //printf("è vuoto\n");
         q->head = l;
         q->rear = l;
-    }else{
-        //printf("non è vuoto\n");
-        q->head->next = l;
-        q->rear = l; 
+        return;
     }
-       
+
+    q->rear->next = l;
+    q->rear = l;
+
+    return;
 }
 
-int isEmpty(Queue q){    
+int isEmpty(Queue q){
     return (q->head == NULL && q->rear == NULL );
 }
 
 Queue createQueue(){
-    Queue q = malloc(sizeof(Queue));   
+    Queue q = malloc(sizeof(Queue));
 
     if(!q) printf("Error: malloc\n");
 
-    q->head = q->rear = NULL; 
+    q->head = q->rear = NULL;
     printf("Queue created.\n");
     return q;
 }
@@ -332,15 +333,15 @@ void DFS_m(Graph_m g){
     printf("DFS_m\n");
     int n = g->V;
     int *aux = malloc(n*sizeof(int));
-    
+
     for(int i=0;i<n;i++){
         aux[i]=0;
     }
-    for(int i=0;i<n;i++){    
+    for(int i=0;i<n;i++){
         if(aux[i]==0){
             printf("%d",i);
             aux[i]=1;
-        }    
+        }
         DFS2_m(g,aux,i);
     }
     printf("\n");
@@ -373,12 +374,12 @@ Graph_m graphNew_m(int n){
 }
 
 void graphDestroy_m(Graph_m g){
-    int n = g->V;    
+    int n = g->V;
     for(int i=0;i<n;i++){
-        free(g->A[i]);    
+        free(g->A[i]);
     }
 
-    free(g);    
+    free(g);
     return;
 }
 
@@ -404,7 +405,7 @@ Graph_m graphRead_m(void){
     g->E = e;
 
     printf("Inserisci archi %d: ",e);
-    for(int i=0;i<e;i++){        
+    for(int i=0;i<e;i++){
         scanf("%d %d\n",&v,&w);
         graphEdgeInsert_m(g,v,w);
     }
@@ -428,9 +429,3 @@ void graphPrint_m(Graph_m g){
     }
     return;
 }
-
-
-
-
-
-
