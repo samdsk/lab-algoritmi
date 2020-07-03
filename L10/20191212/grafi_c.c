@@ -404,7 +404,7 @@ Graph_m graphRead_m(void){
 
     g->E = e;
 
-    printf("Inserisci archi %d: ",e);
+    printf("Inserisci %d archi: ",e);
     for(int i=0;i<e;i++){
         scanf("%d %d\n",&v,&w);
         graphEdgeInsert_m(g,v,w);
